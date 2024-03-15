@@ -102,10 +102,16 @@ def build(config, results):
     file = f"basic-{timestamp()}.zip"
     logging.info(f"Archiving build output to {file}...")
     with ZipFile(file, "w") as archive:
-        archive.write(f"Objects/basic.axf")
-        archive.write(f"Objects/basic.axf.map")
+        archive.write(f"Objects/basic.elf")
+        archive.write(f"Objects/basic.elf.map")
         archive.write(f"Objects/basic.{config.target}.clog")
 
+@matrix_action
+def clean(config, results):
+    """Build the config(s) with CMSIS-Build"""
+    yield run_clean(config)
+    if not results[0].success:
+        return
 
 @matrix_action
 def run(config, results):
@@ -122,12 +128,15 @@ def run(config, results):
 
 @matrix_command(needs_shell=False)
 def run_cbuild(config):
-    return ["bash", "-c", f"cbuild.sh --quiet --packs basic.{config.target}.cprj"]
+    return ["bash", "-c", f"cbuild --packs basic.{config.target}.cprj"]
 
+@matrix_command(needs_shell=False)
+def run_clean(config):
+    return ["bash", "-c", f"rm -rf Objects/"]
 
 @matrix_command(test_report=ConsoleReport()|CropReport("---\[ UNITY BEGIN \]---", '---\[ UNITY END \]---')|UnityReport())
 def run_fvp(config):
-    return ["VHT_Corstone_SSE-300_Ethos-U55", "-q", "--stat", "--simlimit", "1", "-f", "fvp_config.txt", "Objects/basic.axf"]
+    return ["VHT_Corstone_SSE-300_Ethos-U55", "-q", "--stat", "--simlimit", "1", "-f", "fvp_config.txt", "Objects/basic.elf"]
 
 
 if __name__ == "__main__":

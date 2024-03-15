@@ -4,3 +4,4 @@
 **/*.tar
 **/Objects
 **/RTE/_**
+**/basic-*.zip

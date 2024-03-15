@@ -20,7 +20,7 @@ steps:
       python build.py --verbose build run
 download:
   - RTE/**/RTE_Components.h
-  - Objects/basic.axf
-  - Objects/basic.axf.map
+  - Objects/basic.elf
+  - Objects/basic.elf.map
   - basic-*.xunit
   - basic-*.zip
