@@ -7,7 +7,7 @@ all: clean build run
 
 build:
 	@echo "Building basic.debug.cprj MDK project ..."
-	cbuild --packs $(AVH_GETSTARTED_PRO_PATH)/basic.debug.cprj
+	cbuild --packs $(AVH_GETSTARTED_PRO_PATH)/basic.debug.cprj --update-rte
 
 clean:
 	@echo "Remove object files ..."
