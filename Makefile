@@ -15,6 +15,6 @@ clean:
 
 run: $(AVH_GETSTARTED_PRO_PATH)/Objects/basic.elf
 	@echo "Running elf files ..."
-	VHT_Corstone_SSE-300_Ethos-U55 -q --stat --simlimit 1 -f $(AVH_GETSTARTED_PRO_PATH)/fvp_config.txt $(AVH_GETSTARTED_PRO_PATH)/Objects/basic.elf
+	FVP_Corstone_SSE-300_Ethos-U55 -q --stat --simlimit 1 -f $(AVH_GETSTARTED_PRO_PATH)/fvp_config.txt $(AVH_GETSTARTED_PRO_PATH)/Objects/basic.elf
 
 .PHONY: all build clean run
